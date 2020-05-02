@@ -8,8 +8,18 @@
 
 import UIKit
 
-class BreedsTableViewController: UITableViewController {
+class BreedsTableViewController: UITableViewController, UISearchResultsUpdating {
     var breeds = [Breed]()
+    var filteredBreeds = [Breed]()
+    var isFilterActive : Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    let searchController = UISearchController(searchResultsController: nil)
+    let headers = ["x-api-key": "7b7f2fab-4724-44ad-8692-a172f7af0b1d"]
+    let urlString = "https://api.thecatapi.com/v1/breeds"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,36 +30,19 @@ class BreedsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        let headers = ["x-api-key": "7b7f2fab-4724-44ad-8692-a172f7af0b1d"]
+        title = "Breeds"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        // Setting up UISearchController.
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Petitions"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
 
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.thecatapi.com/v1/breeds")! as URL,
-                                                cachePolicy: .useProtocolCachePolicy,
-                                            timeoutInterval: 10.0)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-          if (error != nil) {
-            print(error)
-          } else {
-            let httpResponse = response as? HTTPURLResponse
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do {
-                self.breeds = try decoder.decode([Breed].self, from: data!)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print(error)
-            }
-            print(httpResponse)
-          }
-        })
-
-        dataTask.resume()
+        fetchData(from: urlString)
     }
 
     // MARK: - Table view data source
@@ -59,14 +52,21 @@ class BreedsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return breeds.count
+        return isFilterActive ? filteredBreeds.count : breeds.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let breed: Breed
+        
+        if isFilterActive {
+            breed = filteredBreeds[indexPath.row]
+        } else {
+            breed = breeds[indexPath.row]
+        }
 
         // Configure the cell...
-        cell.textLabel?.text = breeds[indexPath.row].name
+        cell.textLabel?.text = breed.name
 
         return cell
     }
@@ -115,5 +115,81 @@ class BreedsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Fetching data
+    
+    @objc func handleRefreshControl() {
+        // Update your content…
+        fetchData(from: urlString)
+
+        // Dismiss the refresh control.
+        DispatchQueue.main.async {
+           self.refreshControl?.endRefreshing()
+        }
+    }
+    
+    func fetchData(from resource: String) {
+        let request = NSMutableURLRequest(
+            url: NSURL(string: resource)! as URL,
+            cachePolicy: .useProtocolCachePolicy,
+            timeoutInterval: 10.0
+        )
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                self.showLoadingError()
+            } else {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                
+                do {
+                    self.breeds = try decoder.decode([Breed].self, from: data!)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                } catch {
+                    self.showDecodingError()
+                }
+            }
+        })
+
+        dataTask.resume()
+    }
+    
+    // MARK: - Error
+    
+    func showDecodingError() {
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Decoading error", message: "There was a problem decoading the fetched data; please try again.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)
+        }
+    }
+    
+    func showLoadingError() {
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)
+        }
+    }
+    
+    // MARK: - Search
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredBreeds = breeds.filter { (breed) -> Bool in
+            return breed.name.lowercased().contains(searchText.lowercased()) || breed.temperament.lowercased().contains(searchText.lowercased())
+        }
+        
+        tableView.reloadData()
+    }
 
 }
