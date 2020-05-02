@@ -13,16 +13,16 @@ struct Breed: Codable {
     let name: String
     let temperament: String
     let lifeSpan: String
-    let altNames: String
-    let wikipediaUrl: String
+//    let altNames: String
+//    let wikipediaUrl: String
     let origin: String
-    let weightImperial: String
+    let weight: [String: String]
     let experimental: Int
     let hairless: Int
     let natural: Int
     let rare: Int
     let rex: Int
-    let suppressTail: Int
+    let suppressedTail: Int
     let shortLegs: Int
     let hypoallergenic: Int
     let adaptability: Int
