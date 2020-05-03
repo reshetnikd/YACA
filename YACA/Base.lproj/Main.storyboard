@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -43,6 +44,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrs-Co-XWO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1118.840579710145" y="95.758928571428569"/>
+        </scene>
+        <!--Breed Detail View Controller-->
+        <scene sceneID="Qpa-5c-VlA">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n9x-HR-V5e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="breedDetail" id="1Eu-bx-XF1" customClass="BreedDetailViewController" customModule="YACA" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rdd-ju-ISx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="XTJ-vv-yc8"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fyC-U5-pF3"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2037.68115942029" y="95.758928571428569"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="O6Z-co-wcg">

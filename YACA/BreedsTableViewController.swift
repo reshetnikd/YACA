@@ -35,7 +35,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
         // Setting up UISearchController.
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Petitions"
+        searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
@@ -106,15 +106,27 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     */
 
-    /*
     // MARK: - Navigation
 
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "breedDetail") as? BreedDetailViewController {
+            if isFilterActive {
+                vc.breed = filteredBreeds[indexPath.row]
+            } else {
+                vc.breed = breeds[indexPath.row]
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     // MARK: - Fetching data
     
@@ -152,6 +164,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
                     }
                 } catch {
                     self.showDecodingError()
+                    print(error)
                 }
             }
         })
