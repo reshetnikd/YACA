@@ -9,6 +9,8 @@
 import UIKit
 
 class BreedDetailViewController: UIViewController {
+    let scrollView = UIScrollView()
+    let stackView = UIStackView()
     var breed: Breed?
 
     override func viewDidLoad() {
@@ -17,6 +19,27 @@ class BreedDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         title = breed?.name
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        scrollView.isScrollEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        
+        scrollView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        scrollView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10
+
+        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        
+        stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40).isActive = true
         
         let altNameLabel = UILabel()
         altNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -75,27 +98,12 @@ class BreedDetailViewController: UIViewController {
         descriptionLabel.text = breed?.description
         descriptionLabel.sizeToFit()
         
-        view.addSubview(altNameLabel)
-        view.addSubview(temperamentLabel)
-        view.addSubview(lifeSpanLabel)
-        view.addSubview(originLabel)
-        view.addSubview(wikipediaUrlLabel)
-        view.addSubview(descriptionLabel)
-        
-        var previous: UILabel?
-        
-        for label in [altNameLabel, temperamentLabel, lifeSpanLabel, originLabel, descriptionLabel, wikipediaUrlLabel] {
-            label.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-            label.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-            
-            if let previous = previous {
-                label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
-            } else {
-                label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-            }
-            
-            previous = label
-        }
+        stackView.addArrangedSubview(altNameLabel)
+        stackView.addArrangedSubview(temperamentLabel)
+        stackView.addArrangedSubview(lifeSpanLabel)
+        stackView.addArrangedSubview(originLabel)
+        stackView.addArrangedSubview(wikipediaUrlLabel)
+        stackView.addArrangedSubview(descriptionLabel)
     }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
