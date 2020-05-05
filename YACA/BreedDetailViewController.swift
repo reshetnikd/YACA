@@ -82,7 +82,7 @@ class BreedDetailViewController: UIViewController {
         
         let originLabel = UILabel()
         originLabel.translatesAutoresizingMaskIntoConstraints = false
-        let originString = NSMutableAttributedString(string: "Origin: \(breed!.origin)")
+        let originString = NSMutableAttributedString(string: "Origin: \(breed!.origin), \(breed!.countryCode)")
         originString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: 7))
         originLabel.attributedText = originString
         originLabel.sizeToFit()
@@ -202,7 +202,7 @@ class BreedDetailViewController: UIViewController {
             adaptabilityLabel.attributedText = adaptabilityString
         } else {
             for i in 1...5 {
-                if i < breed!.adaptability % 5 {
+                if i <= breed!.adaptability % 5 {
                     adaptabilityString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
                 } else {
                     adaptabilityString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
@@ -211,6 +211,237 @@ class BreedDetailViewController: UIViewController {
             adaptabilityLabel.attributedText = adaptabilityString
         }
         adaptabilityLabel.sizeToFit()
+        
+        let affectionLevelLabel = UILabel()
+        affectionLevelLabel.translatesAutoresizingMaskIntoConstraints = false
+        let affectionLevelString = NSMutableAttributedString(string: "Affection level: ")
+        affectionLevelString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: affectionLevelString.length))
+        if breed!.affectionLevel % 5 == 0 {
+            for _ in 1...5 {
+                affectionLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            affectionLevelLabel.attributedText = affectionLevelString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.affectionLevel % 5 {
+                    affectionLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    affectionLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            affectionLevelLabel.attributedText = affectionLevelString
+        }
+        affectionLevelLabel.sizeToFit()
+        
+        let childFriendlyLabel = UILabel()
+        childFriendlyLabel.translatesAutoresizingMaskIntoConstraints = false
+        let childFriendlyString = NSMutableAttributedString(string: "Child friendly: ")
+        childFriendlyString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: childFriendlyString.length))
+        if breed!.childFriendly % 5 == 0 {
+            for _ in 1...5 {
+                childFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            childFriendlyLabel.attributedText = childFriendlyString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.childFriendly % 5 {
+                    childFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    childFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            childFriendlyLabel.attributedText = childFriendlyString
+        }
+        childFriendlyLabel.sizeToFit()
+        
+        let dogFriendlyLabel = UILabel()
+        dogFriendlyLabel.translatesAutoresizingMaskIntoConstraints = false
+        let dogFriendlyString = NSMutableAttributedString(string: "Dog friendly: ")
+        dogFriendlyString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: dogFriendlyString.length))
+        if breed!.dogFriendly % 5 == 0 {
+            for _ in 1...5 {
+                dogFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            dogFriendlyLabel.attributedText = dogFriendlyString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.dogFriendly % 5 {
+                    dogFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    dogFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            dogFriendlyLabel.attributedText = dogFriendlyString
+        }
+        dogFriendlyLabel.sizeToFit()
+        
+        let strangerFriendlyLabel = UILabel()
+        strangerFriendlyLabel.translatesAutoresizingMaskIntoConstraints = false
+        let strangerFriendlyString = NSMutableAttributedString(string: "Stranger friendly: ")
+        strangerFriendlyString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: strangerFriendlyString.length))
+        if breed!.strangerFriendly % 5 == 0 {
+            for _ in 1...5 {
+                strangerFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            strangerFriendlyLabel.attributedText = strangerFriendlyString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.strangerFriendly % 5 {
+                    strangerFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    strangerFriendlyString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            strangerFriendlyLabel.attributedText = strangerFriendlyString
+        }
+        strangerFriendlyLabel.sizeToFit()
+        
+        let energyLevelLabel = UILabel()
+        energyLevelLabel.translatesAutoresizingMaskIntoConstraints = false
+        let energyLevelString = NSMutableAttributedString(string: "Energy level: ")
+        energyLevelString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: energyLevelString.length))
+        if breed!.energyLevel % 5 == 0 {
+            for _ in 1...5 {
+                energyLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            energyLevelLabel.attributedText = energyLevelString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.energyLevel % 5 {
+                    energyLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    energyLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            energyLevelLabel.attributedText = energyLevelString
+        }
+        energyLevelLabel.sizeToFit()
+        
+        let groomingLabel = UILabel()
+        groomingLabel.translatesAutoresizingMaskIntoConstraints = false
+        let groomingString = NSMutableAttributedString(string: "Grooming: ")
+        groomingString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: groomingString.length))
+        if breed!.grooming % 5 == 0 {
+            for _ in 1...5 {
+                groomingString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            groomingLabel.attributedText = groomingString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.grooming % 5 {
+                    groomingString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    groomingString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            groomingLabel.attributedText = groomingString
+        }
+        groomingLabel.sizeToFit()
+        
+        let healthIssuesLabel = UILabel()
+        healthIssuesLabel.translatesAutoresizingMaskIntoConstraints = false
+        let healthIssuesString = NSMutableAttributedString(string: "Health issues: ")
+        healthIssuesString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: healthIssuesString.length))
+        if breed!.healthIssues % 5 == 0 {
+            for _ in 1...5 {
+                healthIssuesString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            healthIssuesLabel.attributedText = healthIssuesString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.healthIssues % 5 {
+                    healthIssuesString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    healthIssuesString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            healthIssuesLabel.attributedText = healthIssuesString
+        }
+        healthIssuesLabel.sizeToFit()
+        
+        let intelligenceLabel = UILabel()
+        intelligenceLabel.translatesAutoresizingMaskIntoConstraints = false
+        let intelligenceString = NSMutableAttributedString(string: "Intelligence: ")
+        intelligenceString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: intelligenceString.length))
+        if breed!.intelligence % 5 == 0 {
+            for _ in 1...5 {
+                intelligenceString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            intelligenceLabel.attributedText = intelligenceString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.intelligence % 5 {
+                    intelligenceString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    intelligenceString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            intelligenceLabel.attributedText = intelligenceString
+        }
+        intelligenceLabel.sizeToFit()
+        
+        let sheddingLevelLabel = UILabel()
+        sheddingLevelLabel.translatesAutoresizingMaskIntoConstraints = false
+        let sheddingLevelString = NSMutableAttributedString(string: "Shedding level: ")
+        sheddingLevelString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: sheddingLevelString.length))
+        if breed!.sheddingLevel % 5 == 0 {
+            for _ in 1...5 {
+                sheddingLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            sheddingLevelLabel.attributedText = sheddingLevelString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.sheddingLevel % 5 {
+                    sheddingLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    sheddingLevelString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            sheddingLevelLabel.attributedText = sheddingLevelString
+        }
+        sheddingLevelLabel.sizeToFit()
+        
+        let socialNeedsLabel = UILabel()
+        socialNeedsLabel.translatesAutoresizingMaskIntoConstraints = false
+        let socialNeedsString = NSMutableAttributedString(string: "Social needs: ")
+        socialNeedsString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: socialNeedsString.length))
+        if breed!.socialNeeds % 5 == 0 {
+            for _ in 1...5 {
+                socialNeedsString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            socialNeedsLabel.attributedText = socialNeedsString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.socialNeeds % 5 {
+                    socialNeedsString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    socialNeedsString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            socialNeedsLabel.attributedText = socialNeedsString
+        }
+        socialNeedsLabel.sizeToFit()
+        
+        let vocalisationLabel = UILabel()
+        vocalisationLabel.translatesAutoresizingMaskIntoConstraints = false
+        let vocalisationString = NSMutableAttributedString(string: "Vocalisation: ")
+        vocalisationString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 17), range: NSRange(location: 0, length: vocalisationString.length))
+        if breed!.vocalisation % 5 == 0 {
+            for _ in 1...5 {
+                vocalisationString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+            }
+            vocalisationLabel.attributedText = vocalisationString
+        } else {
+            for i in 1...5 {
+                if i <= breed!.vocalisation % 5 {
+                    vocalisationString.append(NSAttributedString(attachment: NSTextAttachment(image: circleFill!)))
+                } else {
+                    vocalisationString.append(NSAttributedString(attachment: NSTextAttachment(image: circle!)))
+                }
+            }
+            vocalisationLabel.attributedText = vocalisationString
+        }
+        vocalisationLabel.sizeToFit()
         
         let wikipediaUrlLabel = UILabel()
         wikipediaUrlLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -251,6 +482,17 @@ class BreedDetailViewController: UIViewController {
         stackView.addArrangedSubview(shortLegsLabel)
         stackView.addArrangedSubview(hypoallergenicLabel)
         stackView.addArrangedSubview(adaptabilityLabel)
+        stackView.addArrangedSubview(affectionLevelLabel)
+        stackView.addArrangedSubview(childFriendlyLabel)
+        stackView.addArrangedSubview(dogFriendlyLabel)
+        stackView.addArrangedSubview(strangerFriendlyLabel)
+        stackView.addArrangedSubview(energyLevelLabel)
+        stackView.addArrangedSubview(groomingLabel)
+        stackView.addArrangedSubview(healthIssuesLabel)
+        stackView.addArrangedSubview(intelligenceLabel)
+        stackView.addArrangedSubview(sheddingLevelLabel)
+        stackView.addArrangedSubview(socialNeedsLabel)
+        stackView.addArrangedSubview(vocalisationLabel)
         stackView.addArrangedSubview(wikipediaUrlLabel)
         stackView.addArrangedSubview(descriptionLabel)
     }
