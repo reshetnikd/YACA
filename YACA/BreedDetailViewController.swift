@@ -24,10 +24,11 @@ class BreedDetailViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
-        scrollView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        scrollView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +40,7 @@ class BreedDetailViewController: UIViewController {
         stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         
-        stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40).isActive = true
+        stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 10).isActive = true
         
         let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .medium)
         let checkMark = UIImage(systemName: "checkmark.circle", withConfiguration: config)
