@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="lIt-Tt-kEe" style="IBUITableViewCellStyleDefault" id="Zqz-DZ-K1g">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Breed Cell" textLabel="lIt-Tt-kEe" style="IBUITableViewCellStyleDefault" id="Zqz-DZ-K1g">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zqz-DZ-K1g" id="1D5-de-BlA">
@@ -48,8 +48,7 @@
         <!--Breed Detail View Controller-->
         <scene sceneID="Qpa-5c-VlA">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n9x-HR-V5e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="breedDetail" id="1Eu-bx-XF1" customClass="BreedDetailViewController" customModule="YACA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Breed Detail" id="1Eu-bx-XF1" customClass="BreedDetailViewController" customModule="YACA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rdd-ju-ISx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,6 +57,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fyC-U5-pF3"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n9x-HR-V5e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2037.68115942029" y="95.758928571428569"/>
         </scene>

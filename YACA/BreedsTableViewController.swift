@@ -56,7 +56,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Breed Cell", for: indexPath)
         let breed: Breed
         
         if isFilterActive {
@@ -117,7 +117,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     */
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "breedDetail") as? BreedDetailViewController {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Breed Detail") as? BreedDetailViewController {
             if isFilterActive {
                 vc.breed = filteredBreeds[indexPath.row]
             } else {
@@ -152,7 +152,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
-                self.showLoadingError()
+                self.showError(error!.localizedDescription)
             } else {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -163,8 +163,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
                         self.tableView.reloadData()
                     }
                 } catch {
-                    self.showDecodingError()
-                    print(error)
+                    self.showError(error.localizedDescription)
                 }
             }
         })
@@ -174,17 +173,9 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     
     // MARK: - Error
     
-    func showDecodingError() {
+    func showError(_ error: String) {
         DispatchQueue.main.async {
-            let ac = UIAlertController(title: "Decoading error", message: "There was a problem decoading the fetched data; please try again.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(ac, animated: true)
-        }
-    }
-    
-    func showLoadingError() {
-        DispatchQueue.main.async {
-            let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(ac, animated: true)
         }
