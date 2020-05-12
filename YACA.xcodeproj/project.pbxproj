@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35764561246A8394005FD913 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35764560246A8393005FD913 /* ImageViewController.swift */; };
+		35764563246A8427005FD913 /* ImagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35764562246A8427005FD913 /* ImagesTableViewController.swift */; };
 		359B5054245E0EA400CCEA77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359B5053245E0EA400CCEA77 /* AppDelegate.swift */; };
 		359B5056245E0EA400CCEA77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359B5055245E0EA400CCEA77 /* SceneDelegate.swift */; };
 		359B505B245E0EA400CCEA77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 359B5059245E0EA400CCEA77 /* Main.storyboard */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35764560246A8393005FD913 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		35764562246A8427005FD913 /* ImagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesTableViewController.swift; sourceTree = "<group>"; };
 		359B5050245E0EA400CCEA77 /* YACA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YACA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		359B5053245E0EA400CCEA77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		359B5055245E0EA400CCEA77 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 				359B506B245E13EC00CCEA77 /* Image.swift */,
 				359B506D245E154F00CCEA77 /* BreedsTableViewController.swift */,
 				359B506F245EA75D00CCEA77 /* BreedDetailViewController.swift */,
+				35764562246A8427005FD913 /* ImagesTableViewController.swift */,
+				35764560246A8393005FD913 /* ImageViewController.swift */,
 				359B5059245E0EA400CCEA77 /* Main.storyboard */,
 				359B505C245E0EA600CCEA77 /* Assets.xcassets */,
 				359B505E245E0EA600CCEA77 /* LaunchScreen.storyboard */,
@@ -156,6 +162,8 @@
 				359B506A245E138300CCEA77 /* Category.swift in Sources */,
 				359B5054245E0EA400CCEA77 /* AppDelegate.swift in Sources */,
 				359B5056245E0EA400CCEA77 /* SceneDelegate.swift in Sources */,
+				35764563246A8427005FD913 /* ImagesTableViewController.swift in Sources */,
+				35764561246A8394005FD913 /* ImageViewController.swift in Sources */,
 				359B5070245EA75D00CCEA77 /* BreedDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

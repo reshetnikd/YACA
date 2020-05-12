@@ -1,25 +1,17 @@
 //
-//  BreedsTableViewController.swift
+//  ImagesTableViewController.swift
 //  YACA
 //
-//  Created by Dmitry Reshetnik on 02.05.2020.
+//  Created by Dmitry Reshetnik on 12.05.2020.
 //  Copyright © 2020 Dmitry Reshetnik. All rights reserved.
 //
 
 import UIKit
 
-class BreedsTableViewController: UITableViewController, UISearchResultsUpdating {
-    var breeds = [Breed]()
-    var filteredBreeds = [Breed]()
-    var isFilterActive : Bool {
-        return searchController.isActive && !isSearchBarEmpty
-    }
-    var isSearchBarEmpty: Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    let searchController = UISearchController(searchResultsController: nil)
+class ImagesTableViewController: UITableViewController {
+    var images = [Image]()
     let headers = ["x-api-key": "7b7f2fab-4724-44ad-8692-a172f7af0b1d"]
-    let urlString = "https://api.thecatapi.com/v1/breeds"
+    let urlString = "https://api.thecatapi.com/v1/images/search?limit=100"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,20 +21,9 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        title = "Breeds"
+        title = "Images"
         navigationController?.navigationBar.prefersLargeTitles = true
-        // Setting up UISearchController.
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
         
-        // Setting up UIRefreshControl.
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
-
         fetchData(from: urlString)
     }
 
@@ -53,22 +34,14 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isFilterActive ? filteredBreeds.count : breeds.count
+        return images.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Breed Cell", for: indexPath)
-        let breed: Breed
-        
-        // Check if filter is active to choose from correct data model.
-        if isFilterActive {
-            breed = filteredBreeds[indexPath.row]
-        } else {
-            breed = breeds[indexPath.row]
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = breed.name
+        cell.textLabel?.text = images[indexPath.row].url
 
         return cell
     }
@@ -110,42 +83,23 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
 
     // MARK: - Navigation
 
-    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-    }
-    */
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "Breed Detail") as? BreedDetailViewController {
-            // Check if filter is active to choose from correct data model.
-            if isFilterActive {
-                vc.breed = filteredBreeds[indexPath.row]
-            } else {
-                vc.breed = breeds[indexPath.row]
+        if let cell = sender as? UITableViewCell {
+            if segue.identifier == "Show Image" {
+                if let imageViewController = segue.destination.contents as? ImageViewController {
+                    imageViewController.imageURL = URL(string: (cell.textLabel?.text)!)
+                    imageViewController.hidesBottomBarWhenPushed = true
+                }
             }
-            
-            // Show BreedDetailViewController
-            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     // MARK: - Fetching data
     
-    @objc func handleRefreshControl() {
-        // Update content.
-        fetchData(from: urlString)
-
-        // Dismiss the refresh control.
-        DispatchQueue.main.async {
-           self.refreshControl?.endRefreshing()
-        }
-    }
-    
     func fetchData(from resource: String) {
-        // Configure request.
         let request = NSMutableURLRequest(
             url: NSURL(string: resource)! as URL,
             cachePolicy: .useProtocolCachePolicy,
@@ -154,7 +108,6 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
 
-        // Configure data task to fetch data from given URL.
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
@@ -163,9 +116,8 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 
-                // Parsing each property automatically.
                 do {
-                    self.breeds = try decoder.decode([Breed].self, from: data!)
+                    self.images = try decoder.decode([Image].self, from: data!)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -175,7 +127,6 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
             }
         })
 
-        // Launch data task.
         dataTask.resume()
     }
     
@@ -188,20 +139,15 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
             self.present(ac, animated: true)
         }
     }
-    
-    // MARK: - Search
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContentForSearchText(searchBar.text!)
-    }
-    
-    func filterContentForSearchText(_ searchText: String) {
-        filteredBreeds = breeds.filter { (breed) -> Bool in
-            return breed.name.lowercased().contains(searchText.lowercased()) || breed.temperament.lowercased().contains(searchText.lowercased())
-        }
-        
-        tableView.reloadData()
-    }
 
+}
+
+extension UIViewController {
+    var contents: UIViewController {
+        if let navigationController = self as? UINavigationController {
+             return navigationController.visibleViewController ?? self
+        } else {
+            return self
+        }
+    }
 }

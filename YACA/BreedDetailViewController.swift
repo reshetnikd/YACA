@@ -20,34 +20,41 @@ class BreedDetailViewController: UIViewController {
         title = breed?.name
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        // Setting up UIScrollView.
         scrollView.isScrollEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
+        // Set UIScrollView constraints.
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
         scrollView.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
+        // Setting up UIStackView.
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
 
+        // Set UIStackView constraints.
         stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         
+        // Add constraint to block horizontal scroll.
         stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 10).isActive = true
         
+        // Setting up symbols for labels.
         let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .regular, scale: .medium)
         let checkMark = UIImage(systemName: "checkmark.circle", withConfiguration: config)
         let xMark = UIImage(systemName: "xmark.circle", withConfiguration: config)
         let circle = UIImage(systemName: "circle", withConfiguration: config)
         let circleFill = UIImage(systemName: "circle.fill", withConfiguration: config)
         
+        // Setting up labels.
         let altNameLabel = UILabel()
         altNameLabel.translatesAutoresizingMaskIntoConstraints = false
         if let altName = breed?.altNames {
@@ -447,7 +454,7 @@ class BreedDetailViewController: UIViewController {
         let wikipediaUrlLabel = UILabel()
         wikipediaUrlLabel.translatesAutoresizingMaskIntoConstraints = false
         wikipediaUrlLabel.numberOfLines = 0
-        wikipediaUrlLabel.text = "URL"
+        wikipediaUrlLabel.text = "URL" // Dirty hack.
         wikipediaUrlLabel.sizeToFit()
         
         let textView = UITextView()
@@ -469,6 +476,7 @@ class BreedDetailViewController: UIViewController {
         descriptionLabel.text = breed?.description
         descriptionLabel.sizeToFit()
         
+        // Add labels to UIStackView.
         stackView.addArrangedSubview(altNameLabel)
         stackView.addArrangedSubview(temperamentLabel)
         stackView.addArrangedSubview(lifeSpanLabel)
