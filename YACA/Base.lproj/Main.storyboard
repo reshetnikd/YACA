@@ -65,7 +65,7 @@
         <scene sceneID="O6Z-co-wcg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EfM-DA-6Lp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Breeds" id="q90-23-NaU"/>
+                    <tabBarItem key="tabBarItem" title="Breeds" image="doc" catalog="system" id="q90-23-NaU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IYC-cc-Njs">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -144,7 +144,7 @@
         <scene sceneID="ZmV-9A-Ubp">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="miz-VL-VBA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Images" id="0uz-kq-VWa"/>
+                    <tabBarItem key="tabBarItem" title="Images" image="photo" catalog="system" id="0uz-kq-VWa"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8hQ-q3-e1z">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -203,4 +203,8 @@
             <point key="canvasLocation" x="2029" y="880"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="doc" catalog="system" width="115" height="128"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
+    </resources>
 </document>

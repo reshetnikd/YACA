@@ -123,7 +123,6 @@ class ImagesTableViewController: UITableViewController {
                     }
                 } catch {
                     self.showError(error.localizedDescription)
-                    print(error)
                 }
             }
         })

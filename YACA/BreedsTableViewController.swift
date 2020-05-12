@@ -39,6 +39,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
+        // Setting up UIRefreshControl.
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
 
@@ -59,6 +60,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
         let cell = tableView.dequeueReusableCell(withIdentifier: "Breed Cell", for: indexPath)
         let breed: Breed
         
+        // Check if filter is active to choose from correct data model.
         if isFilterActive {
             breed = filteredBreeds[indexPath.row]
         } else {
@@ -118,12 +120,14 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Breed Detail") as? BreedDetailViewController {
+            // Check if filter is active to choose from correct data model.
             if isFilterActive {
                 vc.breed = filteredBreeds[indexPath.row]
             } else {
                 vc.breed = breeds[indexPath.row]
             }
             
+            // Show BreedDetailViewController
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -131,7 +135,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     // MARK: - Fetching data
     
     @objc func handleRefreshControl() {
-        // Update your content…
+        // Update content.
         fetchData(from: urlString)
 
         // Dismiss the refresh control.
@@ -141,6 +145,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
     }
     
     func fetchData(from resource: String) {
+        // Configure request.
         let request = NSMutableURLRequest(
             url: NSURL(string: resource)! as URL,
             cachePolicy: .useProtocolCachePolicy,
@@ -149,6 +154,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
 
+        // Configure data task to fetch data from given URL.
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
@@ -157,6 +163,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 
+                // Parsing each property automatically.
                 do {
                     self.breeds = try decoder.decode([Breed].self, from: data!)
                     DispatchQueue.main.async {
@@ -168,6 +175,7 @@ class BreedsTableViewController: UITableViewController, UISearchResultsUpdating 
             }
         })
 
+        // Launch data task.
         dataTask.resume()
     }
     
